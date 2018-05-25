@@ -11,3 +11,4 @@ deploy:
   skip_cleanup: true
   on:
     repo: AlexRudd/ecr-login
+    tags: true
