@@ -2,11 +2,12 @@ language: go
 go:
 - 1.10.x
 script:
-- go build -o ecrlogin
+- CGO_ENABLED=0 GOOS=linux go build -o ecrlogin
 deploy:
   provider: releases
   api_key:
     secure: S46fQx3ARaYbpC/C8H3uUv34WzUhhuqs7MZ8h2sYU1hCSTtLEmfgxVdSjPPq0B1OqMkZr6fsTp/UPxO7W7zbBED9Fbh0IUgU4gEtSbB92tRnIv8P23sv6uHhZreThxEUbI/bPOk0nl0qZgGc816WnnndYK1DqrgY1OePYA+hjZcCa/a/u8VEzu7bqV2SH35v/c7Srkl6vQaXpIpV0fIbbAoi4mjiibNqfnJOZaLtlZ9YiY+CaCBk3P3rm0aR2yNqDDYKUjlDLxt306/bmADGRaM6Ej2pzUTJ9VNFP6fQVZ1ZH1vnsDUSkEVwbIgE1WCAjnUEKYmy9tTpuKECtPpsXztRerTs/Z8pYAOqiwTKCh2FwZ+QNwnmqoVTC+k5As/+LGSKR0+uMBvtKHIYeIeQPmNRPTXA8InX33wLoDI2mAG3Qc/kZfIrKic1iVw46B7G9Z8t8Ceg8jC86Ox1Y5CedBUgdy8SlEvjyUasd201hKNqLmqtJ37oIGANMpZCopYjm0vfzKp5pb88x1EO2TsSUHvUdhI6t4ezR2aYRJ8ka2hoYmtTXkWEdlIfcpz8xVx8+I9bGNE2qtIExwQ+4+fbpkqhAIrNgB3jgRBlvjsppChrEbvX/K1eEux3/b8PgtJCYm5ZQt64k2yVbUJjUBoEBq5VOpLcCrvMmowksI/SCbU=
   file: ecrlogin
+  skip_cleanup: true
   on:
     repo: AlexRudd/ecr-login
