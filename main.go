@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/aws/aws-sdk-go-v2/aws/ec2metadata"
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/aws/aws-sdk-go-v2/service/ecr"
 )
@@ -16,6 +17,18 @@ func main() {
 	cfg, err := external.LoadDefaultAWSConfig()
 	if err != nil {
 		panic("unable to load SDK config, " + err.Error())
+	}
+
+	if cfg.Region == "" {
+		// Get ec2 metadata client
+		mdc := ec2metadata.New(cfg)
+
+		// Get current region
+		region, err := mdc.Region()
+		if err != nil {
+			panic("failed to determine AWS region, " + err.Error())
+		}
+		cfg.Region = region
 	}
 
 	// Using the Config value, create the ECR client
